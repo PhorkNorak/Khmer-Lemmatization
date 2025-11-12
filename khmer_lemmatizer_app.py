@@ -48,9 +48,7 @@ KHMER_PUNCTUATION = {
 ZERO_WIDTH_CHARS = {"\u200b", "\u200c", "\u200d"}
 PUNCTUATION_CHARS = set(string.punctuation) | KHMER_PUNCTUATION
 
-SAMPLE_TEXT = (
-    "ខ្ញុំជ្រើសរើសការសិក្សា។ យើងកំពុងរៀន។ គាត់បានធ្វើការងារ។ "
-    "ពួកគេបានទៅសាលារៀន។ នេះគឺជាឧទាហរណ៍នៃការវិភាគទម្រង់ដើមពាក្យ។"
+SAMPLE_TEXT = ("យើងត្រូវតែផ្គាប់ចិត្តខ្លួនឯងដោយការខ្ជាប់ខ្ជួននូវច្បាប់សីលធម៌ល្អ។ កុំផ្តឹងផ្តល់ ឬផ្តេកផ្តិតទៅលើកំហុសអតីតកាល។ ជីវិតប្រៀបដូចជាការរៀបចំរនាបនិងរនាស់ដើម្បីបណ្ដុះផលល្អ។ ត្រូវកកាយរកនូវចំណេះដឹងថ្មីៗ មិនមែនកកូរចលាចលនោះទេ។ ចេះចចឹករៀនសូត្រពីអ្នកដទៃ មិនមែនសសារឬសសិតរឿងឥតប្រយោជន៍ឡើយ។ ត្រូវជ្រើសរើសដោយឈ្លាសវៃ កុំឲ្យឱកាសល្អៗខ្ចាត់បាត់ ព្រោះយើងខ្ទាស់ចិត្តនឹងសេចក្តីស្អប់ ឬក្បង់យករបស់អាក្រក់។ គំនិតក្លាយជាល្អឬខ្មៅ គឺអាស្រ័យលើយើង ហើយយើងមិនគួរគ្មានមហិច្ឆតាឡើយ។ កុំឆ្កឹះរឿងអ្នកដទៃ កុំធ្វើអ្វីឲ្យឆ្គង។ ត្រូវរៀនសូត្រពីច្បងៗ ធ្វើការងារដោយច្បូតច្បាស់លាស់ ហើយឆ្លាក់ស្នាដៃល្អទុក។ ពេលជួបការលំបាក ត្រូវជ្រុះចោលនូវទុក្ខកង្វល់ ធ្វើចិត្តឲ្យជ្រះថ្លា ឲ្យការយល់ដឹងជ្រាបចូលក្នុងខ្លួន ហើយត្រៀបរៀបចំផែនការដើម្បីត្រងយកតែភាពជោគជ័យ។ ត្រូវផ្ចង់ស្មារតី ទាំងចិត្តផ្កូរឿងល្អ និងផ្ដល់ឲ្យអ្នកដទៃដោយចិត្តបរិសុទ្ធ។ កុំផ្ដាច់ទំនាក់ទំនងល្អ ត្រូវធ្វើអ្វីៗដោយផ្ទាល់ដៃ ហ៊ានផ្ទុកបន្ទុក ហើយប្រឹងប្រែងស្ទាក់ចាប់គោលដៅ ហើយស្រាយបំភ្លឺរាល់បញ្ហាដោយតម្លាភាព។"
 )
 
 DEFAULT_STATS = {
@@ -231,7 +229,7 @@ def build_interface():
             with gr.Column(scale=4):
                 stats_panel = gr.HTML(render_stats_cards(DEFAULT_STATS))
                 results_table = gr.Dataframe(
-                    headers=["#", "Token", "Lemma", "Changed?"],
+                    headers=["#", "Token", "Lemma", "Status"],
                     datatype=["number", "str", "str", "str"],
                     value=EMPTY_TABLE,
                     interactive=False,
@@ -250,6 +248,37 @@ def build_interface():
             inputs=None,
             outputs=[text_input, results_table, stats_panel],
         )
+
+        # Reference and Dictionary Section
+        gr.Markdown("---")
+        gr.HTML(
+            f"""
+            <div style="margin-top: 2rem; padding: 20px; background: var(--background-fill-secondary); border-radius: 12px;">
+              <h2 style="margin-top: 0;">📚 Dictionary Source</h2>
+              <p style="font-size: 1rem; margin: 12px 0;">
+                <strong>Source:</strong> Teacher Vatha -
+                <a href="https://youtu.be/mfWl3fV7oMo?si=OuR45gnDqeml2oXw" target="_blank" style="color: var(--link-text-color); text-decoration: underline;">
+                  ១០០០ពាក្យកម្លាយដោយផ្នត់ដើម (YouTube)
+                </a>
+              </p>
+              <p style="font-size: 1rem; margin: 12px 0;">
+                <strong>📊 Total words our in dictionary:</strong> {len(LEMMA_DICT):,} entries
+              </p>
+            </div>
+            """
+        )
+
+        # Display all dictionary entries
+        dict_entries = [[i + 1, derived, root] for i, (derived, root) in enumerate(sorted(LEMMA_DICT.items()))]
+        gr.Dataframe(
+            headers=["#", "ពាក្យកម្លាយ", "ពាក្យឫស"],
+            value=dict_entries,
+            datatype=["number", "str", "str"],
+            interactive=False,
+            wrap=True,
+            label="Complete Lemmatization Dictionary",
+        )
+
     return demo
 
 
