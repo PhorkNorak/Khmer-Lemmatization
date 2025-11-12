@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-"""
-Modern Gradio interface for Khmer lemmatization powered by khmer-nltk tokenization.
-"""
 from __future__ import annotations
 
 import json
@@ -9,22 +5,9 @@ import string
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Sequence
-
-try:
-    import gradio as gr
-except ImportError as exc:  # pragma: no cover - handled dynamically below
-    gr = None  # type: ignore[assignment]
-    _GRADIO_IMPORT_ERROR: BaseException | None = exc
-else:
-    _GRADIO_IMPORT_ERROR = None
-
-try:
-    from khmernltk import word_tokenize as khmer_word_tokenize
-except ImportError as exc:
-    raise RuntimeError(
-        "khmer-nltk is required for Khmer word segmentation. "
-        "Install it via `pip install khmer-nltk`."
-    ) from exc
+import gradio as gr
+from khmernltk import word_tokenize as khmer_word_tokenize
+_GRADIO_IMPORT_ERROR = None
 
 BASE_DIR = Path(__file__).resolve().parent
 DICT_PATH = BASE_DIR / "khmer_lemma_dictionary.json"
