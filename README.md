@@ -1,3 +1,14 @@
+---
+title: Khmer Lemmatization Studio
+colorFrom: white
+colorTo: white
+sdk: gradio
+sdk_version: 6.8.0
+app_file: app.py
+pinned: false
+license: mit
+short_description: Lemmatizing Khmer words to their root (base) form.
+---
 
 # Khmer Lemmatization Studio
 
