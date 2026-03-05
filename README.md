@@ -1,22 +1,10 @@
----
-title: Khmer Lemmatization Studio
-colorFrom: white
-colorTo: white
-sdk: gradio
-sdk_version: 6.8.0
-app_file: app.py
-pinned: false
-license: mit
-short_description: Lemmatizing Khmer words to their root (base) form.
----
-
 # Khmer Lemmatization Studio
 
 A web-based tool for lemmatizing Khmer text reducing inflected or derived words to their root (base) form.
 
-<!-- ## Demo
+## Demo
 
-![Demo](demo.gif) -->
+![Demo](demo.gif)
 
 > Paste any Khmer text, click **Lemmatization**, and instantly see each token alongside its root form.
 
@@ -96,7 +84,7 @@ For code contributions, please open an issue first to discuss your proposed chan
 | Name | Role | Portfolio |
 |------|------|-----------|
 | Phork Norak | Full-Stack Developer | [phorknorak.vercel.app](https://phorknorak.vercel.app/) |
-| Nhor Povketya | Data Analyst | [povketya.github.io/ketyanhor](https://povketya.github.io/ketyanhor/) |
-| Ly Hor | Data Analyst | [final-portfolio-kappa-rust.vercel.app](https://final-portfolio-kappa-rust.vercel.app/) |
+| Nhor Povketya | Data Collection | [povketya.github.io/ketyanhor](https://povketya.github.io/ketyanhor/) |
+| Ly Hor | Data Collection | [final-portfolio-kappa-rust.vercel.app](https://final-portfolio-kappa-rust.vercel.app/) |
 
 ---
